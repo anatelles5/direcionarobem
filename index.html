@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Direcionar o bem para o RS</title>
     <link rel="stylesheet" href="extencionista.css">
-    <link rel="icon" href="rs.png" type="image/png">
+    <link rel="icon" href="DirecionandoRSCapa.png" type="image/png">
     <header class="header"></header>
 
     <nav >
@@ -20,12 +20,17 @@
         box-sizing: border-box;
         margin: 0px;
     }
-    header{
-        background:url(capadirecionarobemrs.jpg)no-repeat center;
-        height: 300px;
-        top: 0;
-        background-color:#0ea691 ;
+ header {
+      background: url("capadirecionarobemrs.jpg") no-repeat center center;
+      background-size: cover;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
+
     .info{
         float: left;
         width: 75%;
@@ -101,12 +106,68 @@
     .org6:hover{
         font-weight: bolder;
     }
+        /* Botão flutuante para ajuda*/
+    #helpBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #06aa01;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Pop-up */
+    #popup {
+        display: none; /* oculto inicialmente */
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 250px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    #popup h3 {
+        margin-top: 0;
+        font-size: 16px;
+    }
+
+    .optionBtn {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+        padding: 8px;
+        background-color: #0cbe24;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #response a { /* Remove o estilo padrão definido para o site*/
+    color: #0000EE !important;              
+    text-decoration: underline !important;  
+    background: none !important;             
+    background-color: transparent !important;
+    box-shadow: none !important;            
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    }
+
     </style>
 </head>
 <body>
     <section class="info">
-       <p>  O Rio Grande do Sul ainda registra pessoas desabrigadas, ou seja, que precisaram sair de casa 
-        e só encontraram acolhimento em espaços públicos ou mantidos por voluntários. Em 29/6/24 o site G1 informou que 6.554 pessoas estão em abrigos.
+       <p> As enchentes no Rio Grande do Sul deixaram marcas que vão muito além da destruição visível.<br> Muitas famílias perderam suas casas, seus bens e a segurança de um lar.<br> As cicatrizes emocionais podem durar para sempre, e ainda hoje muitas pessoas enfrentam dificuldades para recomeçar.<br> Em 29/6/24 o site G1 informou que 6.554 pessoas estão em abrigos.  <br> Cada doação, por menor que pareça, faz diferença na vida de quem precisa. Seja parte dessa corrente de solidariedade e ajude a reconstruir esperanças.
         <br><br>Abaixo disponibiliza-se links para sites oficias de instituições e orgaizações gauchas, 
         para que você possa fazer sua doação de modo seguro e diretamente com os responsáveis. <br></p>
     </section>
@@ -128,8 +189,40 @@
         <a href="https://gauchazh.clicrbs.com.br/ambiente/noticia/2024/05/veja-como-e-onde-doar-para-abrigos-de-animais-resgatados-da-enchente-no-rs-clw19d7v000v0011hqol931dc.html" class="org6" style="margin: 5px;"> <img src="gzh.jpg" style="width:50%; border-radius: 5%; padding: 5px; float: left;" alt="Site GZH Zero Hora"> <br> Informações sobre postos de arrecadação para abrigos de animais </a>
         
     </div>
+        <!-- Botão flutuante -->
+    <button id="helpBtn">?</button>
+
+    <!-- Pop-up -->
+    <div id="popup">
+    <h3>Como podemos ajudar?</h3>
+    <button class="optionBtn" onclick="showResponse('ajuda')">Gostaria de receber ajuda</button>
+    <button class="optionBtn" onclick="showResponse('duvida')">Estou em dúvida de como ajudar</button>
+    <button class="optionBtn" onclick="showResponse('contato')">Gostaria de contatar o desenvolvedor</button>
+    <div id="response"></div>
+    </div>
     <footer style="bottom: 1%; text-align: left; padding-top: 50%; padding-left: 20px;">
         <p><br><br>Página desenvolvida por Ana Telles. Mais detalhes no menu sobre. <br> Imagem 1: Brasil de Fato <br> Imagem 2: G1 - Globo </p>
     </footer>
+        <script>
+    // abrir/fechar popup
+    const helpBtn = document.getElementById('helpBtn');
+    const popup = document.getElementById('popup');
+    helpBtn.addEventListener('click', () => {
+        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // mostrar respostas
+    function showResponse(tipo) {
+        const response = document.getElementById('response');
+        if (tipo === 'ajuda') {
+        response.innerHTML = ' Para receber ajuda contacte o 155 (Alô RS) para o governo do estado <br> ou sosenchentes.rs.gov.br para auxílio e abrigos em caso de desastres,<br> acesse o Tudo Fácil para múltiplos canais de atendimento <br> ou procure a prefeitura e a Defesa Civil do seu município.<br> <a href="https://www.rs.gov.br/tudofacil" target="_blank"> clique aqui para <br>visitar o Tudo Facil</a>  ';
+        } else if (tipo === 'duvida') {
+        response.innerHTML = 'Clicando na aba "seja voluntario" deste site você vera algumas opções de instituições, ao clicar na imagem da organização desejada, você será direcionado para o site oficial da mesma.';
+        } else if (tipo === 'contato') {
+        response.innerHTML = 'Entre em contato pelo e-mail: anatellesartes@gmail.com';
+        }
+    }
+    </script>
+
     </body>
 </html>
